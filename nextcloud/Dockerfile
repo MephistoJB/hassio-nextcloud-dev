@@ -4,6 +4,7 @@ FROM $BUILD_FROM
 ARG BUILD_ARCH=amd64
 
 ENV LANG C.UTF-8
+ENV NEXTCLOUD_PATH="/config/www/nextcloud"
 
 RUN \
   echo "Install build packages (base)" && \
@@ -119,3 +120,5 @@ RUN \
 	    build-dependencies && \
   rm -rf \
 	    /tmp/*
+
+COPY rootfs /
