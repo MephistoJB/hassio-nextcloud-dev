@@ -87,4 +87,21 @@ RUN \
   make install && \
   echo "Configue php and nginx for next cloud" && \
   echo "extension="smbclient.so"" > /etc/php7/conf.d/00_smbclient.ini \
-  ehco 'apc.enable_cli=1' >> /etc/php7/conf.d/apcu.ini
+  ehco 'apc.enable_cli=1' >> /etc/php7/conf.d/apcu.ini && \
+  sed -i \
+          -e 's/;opcache.enable.*=.*/opcache.enable=1/g' \
+          -e 's/;opcache.interned_strings_buffer.*=.*/opcache.interned_strings_buffer=8/g' \
+          -e 's/;opcache.max_accelerated_files.*=.*/opcache.max_accelerated_files=10000/g' \
+          -e 's/;opcache.memory_consumption.*=.*/opcache.memory_consumption=128/g' \
+          -e 's/;opcache.save_comments.*=.*/opcache.save_comments=1/g' \
+          -e 's/;opcache.revalidate_freq.*=.*/opcache.revalidate_freq=1/g' \
+          -e 's/;always_populate_raw_post_data.*=.*/always_populate_raw_post_data=-1/g' \
+          -e 's/memory_limit.*=.*128M/memory_limit=512M/g' \
+          -e 's/max_execution_time.*=.*30/max_execution_time=120/g' \
+          -e 's/upload_max_filesize.*=.*2M/upload_max_filesize=1024M/g' \
+          -e 's/post_max_size.*=.*8M/post_max_size=1024M/g' \
+                  /etc/php7/php.ini && \
+ sed -i \
+	        '/opcache.enable=1/a opcache.enable_cli=1' \
+		              /etc/php7/php.ini && \
+ echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /etc/php7/php-fpm.conf
