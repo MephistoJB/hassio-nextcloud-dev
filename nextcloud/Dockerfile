@@ -101,7 +101,20 @@ RUN \
           -e 's/upload_max_filesize.*=.*2M/upload_max_filesize=1024M/g' \
           -e 's/post_max_size.*=.*8M/post_max_size=1024M/g' \
                   /etc/php7/php.ini && \
- sed -i \
+  sed -i \
 	        '/opcache.enable=1/a opcache.enable_cli=1' \
 		              /etc/php7/php.ini && \
- echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /etc/php7/php-fpm.conf
+  echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /etc/php7/php-fpm.conf && \
+  echo "**** set version tag ****" && \
+  if [ -z ${NEXTCLOUD_RELEASE+x} ]; then \
+	      NEXTCLOUD_RELEASE=$(curl -s https://raw.githubusercontent.com/nextcloud/nextcloud.com/master/strings.php \
+	      | awk -F\' '/VERSIONS_SERVER_FULL_STABLE/ {print $2;exit}'); \
+  fi && \
+  echo "Download nextcloud" && \
+  crul -o /app/nextcloud.tar.bz2 -L \
+        https://download.nextcloud.com/server/releases/nextcloud-${NEXTCLOUD_RELEASE}.tar.bz2 && \
+  echo "**** cleanup ****" && \
+  apk del --purge \
+	    build-dependencies && \
+  rm -rf \
+	    /tmp/*
