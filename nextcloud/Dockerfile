@@ -84,4 +84,7 @@ RUN \
   ./configure \
           --with-php-config=/usr/bin/php-config7 && \
   make && \
-  make install
+  make install && \
+  echo "Configue php and nginx for next cloud" && \
+  echo "extension="smbclient.so"" > /etc/php7/conf.d/00_smbclient.ini \
+  ehco 'apc.enable_cli=1' >> /etc/php7/conf.d/apcu.ini
