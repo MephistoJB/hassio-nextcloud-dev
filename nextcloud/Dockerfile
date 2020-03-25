@@ -76,4 +76,12 @@ RUN \
           samba-client \
           sudo \
           tar \
-          unzip 
+          unzip && \
+  echo "compile smb client" && \
+  git clone git://github.com/eduardok/libsmbclient-php.git /tmp/smbclient && \
+  cd /tmp/smbclient && \
+  phpize7 && \
+  ./configure \
+          --with-php-config=/usr/bin/php-config7 && \
+  make && \
+  make install
