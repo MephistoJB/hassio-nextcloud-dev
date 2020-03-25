@@ -38,7 +38,7 @@ jobs:
 
       - name: setup local env
         run: |
-          \cp -Rv main/telegraf/config.json secondary/nextcloud/config.json
+          \cp -Rv main/nextcloud/config.json secondary/nextcloud/config.json
           \cp -Rv main/README.md secondary/nextcloud/README.md
           cd secondary
           git config --local user.email "robe_dunne@hotmail.com"
