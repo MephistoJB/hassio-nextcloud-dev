@@ -6,7 +6,7 @@ ARG BUILD_ARCH=amd64
 ENV LANG C.UTF-8
 
 RUN \
-  echo "Install build packages" && \
+  echo "Install build packages (base)" && \
   apk add --no-cache \
           apache2-utils \
           git \
@@ -25,4 +25,16 @@ RUN \
           php7-simplexml \
           php7-xml \
           php7-xmlwriter \
-          php7-zlib
+          php7-zlib && \
+  echo "Install build packages (main)" && \
+  apk add --no-cache --virtual=build-dependencies --upgrade \
+          autoconf \
+          automake \
+          file \
+          g++ \
+          gcc \
+          make \
+          php7-dev \
+          re2c \
+          samba-dev \
+          zlib-dev

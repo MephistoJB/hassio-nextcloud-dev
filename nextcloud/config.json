@@ -1,5 +1,5 @@
 {
-  "name": "Telegraf",
+  "name": "Next Cloud",
   "version": "dev",
   "slug": "hassio_nextcloud",
   "description" : "An addon to add telegraf to nextcloud. Dev Branch",
