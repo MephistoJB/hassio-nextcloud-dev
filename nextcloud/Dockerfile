@@ -42,6 +42,9 @@ RUN \
           zlib-dev && \
   echo "Install runtime packages" && \
   apk add --no-cache --upgrade \
+          lua-resty-http \
+          nginx-mod-http-lua \
+          
           curl \
           ffmpeg \
           imagemagick \
