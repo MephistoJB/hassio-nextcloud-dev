@@ -7,14 +7,9 @@ ENV LANG C.UTF-8
 ENV NEXTCLOUD_PATH="/config/www/nextcloud"
 
 RUN \
-  echo "Setup users and groups" && \
-  groupmod -g 1000 users && \
-  useradd -u 911 -U -d /config -s /bin/false abc && \
-  usermod -G users abc 
-
-RUN \
   echo "Install build packages (base)" && \
   apk add --no-cache \
+          shadow \
           apache2-utils \
           git \
           libressl3.0-libssl \
@@ -126,5 +121,11 @@ RUN \
 	    build-dependencies && \
   rm -rf \
 	    /tmp/*
+
+RUN \
+  echo "Setup users and groups" && \
+  groupmod -g 1000 users && \
+  useradd -u 911 -U -d /config -s /bin/false abc && \
+  usermod -G users abc 
 
 COPY rootfs /
