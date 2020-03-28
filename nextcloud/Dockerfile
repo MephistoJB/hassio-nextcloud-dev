@@ -44,7 +44,6 @@ RUN \
   apk add --no-cache --upgrade \
           lua-resty-http \
           nginx-mod-http-lua \
-          
           curl \
           ffmpeg \
           imagemagick \
@@ -120,10 +119,11 @@ RUN \
   curl -o /app/nextcloud.tar.bz2 -L \
         https://download.nextcloud.com/server/releases/nextcloud-${NEXTCLOUD_RELEASE}.tar.bz2 && \
   echo "**** cleanup ****" && \
-  apk del --purge \
+  apk del --purge --no-cache \
 	    build-dependencies && \
   rm -rf \
-	    /tmp/*
+	    /tmp/* \
+            /etc/nginx
 
 RUN \
   echo "Setup users and groups" && \
