@@ -91,7 +91,7 @@ RUN \
   make install && \
   echo "Configue php and nginx for next cloud" && \
   echo "extension="smbclient.so"" > /etc/php7/conf.d/00_smbclient.ini \
-  ehco 'apc.enable_cli=1' >> /etc/php7/conf.d/apcu.ini && \
+  echo 'apc.enable_cli=1' >> /etc/php7/conf.d/apcu.ini && \
   sed -i \
           -e 's/;opcache.enable.*=.*/opcache.enable=1/g' \
           -e 's/;opcache.interned_strings_buffer.*=.*/opcache.interned_strings_buffer=8/g' \
